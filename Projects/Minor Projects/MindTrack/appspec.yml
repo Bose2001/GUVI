@@ -1,0 +1,11 @@
+version: 0.0
+Resources:
+  - myApp:
+      Type: Kubernetes
+      Properties:
+        ClusterName: brain-tasks-cluster
+        Namespace: default
+        ResourceTypes:
+          - deployment
+        ResourceNames:
+          - brain-tasks-deployment
