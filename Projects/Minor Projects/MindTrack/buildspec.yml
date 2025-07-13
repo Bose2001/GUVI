@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 558902135917.dkr.ecr.us-east-1.amazonaws.com/brain-tasks-app
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t brain-tasks-app .
+      - docker tag brain-tasks-app 558902135917.dkr.ecr.us-east-1.amazonaws.com/brain-tasks-app
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 558902135917.dkr.ecr.us-east-1.amazonaws.com/brain-tasks-app
+      - echo Updating Kubernetes deployment...
+      - aws eks update-kubeconfig --region us-east-1 --name brain-tasks-cluster
+      - kubectl set image deployment/brain-tasks-deployment brain-tasks-container=558902135917.dkr.ecr.us-east-1.amazonaws.com/brain-tasks-app
+      - kubectl rollout status deployment/brain-tasks-deployment
