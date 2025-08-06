@@ -1,3 +1,4 @@
 kubernetes Loadbalancer ARN
 
-http://afefd1637eae7498bb44ba9bc5525793-642403127.us-east-1.elb.amazonaws.com
+http://a966e5b1b41ea4417817f66e3b8411c7-591184991.us-east-1.elb.amazonaws.com
+
